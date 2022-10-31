@@ -15,7 +15,7 @@ import { ABI, ADDRESS } from "../contract";
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [walletAddres, setWalletAddres] = useState("");
+  const [walletAddress, setWalletAddres] = useState("");
   const [provider, setProvider] = useState("");
   const [contract, setContract] = useState("");
   const [showAlert, setShowAlert] = useState({
@@ -29,7 +29,7 @@ export const GlobalContextProvider = ({ children }) => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-
+    console.log(accounts);
     if (accounts) setWalletAddres(accounts[0]);
   };
 
@@ -66,7 +66,7 @@ export const GlobalContextProvider = ({ children }) => {
 
   return (
     <GlobalContext.Provider
-      value={{ contract, walletAddres, showAlert, setShowAlert }}
+      value={{ contract, walletAddress, showAlert, setShowAlert }}
     >
       {children}
     </GlobalContext.Provider>
