@@ -9,6 +9,7 @@ const Home = () => {
 
   const handleClick = async () => {
     try {
+      console.log({ contract });
       const playerExist = await contract.isPlayer(walletAddress);
 
       if (!playerExist) {
