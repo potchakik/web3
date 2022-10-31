@@ -18,6 +18,11 @@ export const GlobalContextProvider = ({ children }) => {
   const [walletAddres, setWalletAddres] = useState("");
   const [provider, setProvider] = useState("");
   const [contract, setContract] = useState("");
+  const [showAlert, setShowAlert] = useState({
+    status: "false",
+    type: "info",
+    message: "",
+  });
 
   //* Set wallet address state
   const updateCurrentWalletAddress = async () => {
@@ -48,8 +53,19 @@ export const GlobalContextProvider = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (showAlert?.status) {
+      const timer = setTimeout(() => {
+        setShowAlert({ status: "false", type: "info", message: "" });
+      }, [50000]);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
+
   return (
-    <GlobalContext.Provider value={{ contract, walletAddres }}>
+    <GlobalContext.Provider
+      value={{ contract, walletAddres, showAlert, setShowAlert }}
+    >
       {children}
     </GlobalContext.Provider>
   );
