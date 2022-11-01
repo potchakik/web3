@@ -11,18 +11,21 @@ const Home = () => {
     try {
       const playerExist = await contract.isPlayer(walletAddress);
 
-      console.log(playerExist);
       if (!playerExist) {
         await contract.registerPlayer(playerName, playerName);
 
         setShowAlert({
-          status: "true",
+          status: true,
           type: "info",
           message: `${playerName} is being summond!`,
         });
       }
     } catch (error) {
-      alert(error);
+      setShowAlert({
+        status: true,
+        type: "failure",
+        message: "Something went wrong!",
+      });
     }
   };
 
